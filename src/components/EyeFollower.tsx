@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useTheme } from "@/context/ThemeContext";
 
 interface EyeFollowerProps {
@@ -11,40 +11,61 @@ export default function EyeFollower({ className = "" }: EyeFollowerProps) {
   const { currentTheme } = useTheme();
   const leftEyeRef = useRef<HTMLDivElement>(null);
   const rightEyeRef = useRef<HTMLDivElement>(null);
-
-  const [pupilPositions, setPupilPositions] = useState({
-    left: { x: 0, y: 0 },
-    right: { x: 0, y: 0 },
-  });
+  const leftPupilRef = useRef<HTMLDivElement>(null);
+  const rightPupilRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const calcPupilOffset = (eyeEl: HTMLDivElement | null) => {
-        if (!eyeEl) return { x: 0, y: 0 };
-        const rect = eyeEl.getBoundingClientRect();
-        const eyeCenterX = rect.left + rect.width / 2;
-        const eyeCenterY = rect.top + rect.height / 2;
+    let rafId: number | null = null;
+    let targetX = 0;
+    let targetY = 0;
 
-        const deltaX = e.clientX - eyeCenterX;
-        const deltaY = e.clientY - eyeCenterY;
+    const calcOffset = (eyeEl: HTMLDivElement | null, cursorX: number, cursorY: number) => {
+      if (!eyeEl) return { x: 0, y: 0 };
+      const rect = eyeEl.getBoundingClientRect();
+      const eyeCenterX = rect.left + rect.width / 2;
+      const eyeCenterY = rect.top + rect.height / 2;
 
-        const angle = Math.atan2(deltaY, deltaX);
-        const distance = Math.min(4, Math.hypot(deltaX, deltaY) / 18); // maximum eye movement radius
+      const deltaX = cursorX - eyeCenterX;
+      const deltaY = cursorY - eyeCenterY;
 
-        return {
-          x: Math.cos(angle) * distance,
-          y: Math.sin(angle) * distance,
-        };
+      const angle = Math.atan2(deltaY, deltaX);
+      const distance = Math.min(3.8, Math.hypot(deltaX, deltaY) / 20);
+
+      return {
+        x: Math.cos(angle) * distance,
+        y: Math.sin(angle) * distance,
       };
-
-      setPupilPositions({
-        left: calcPupilOffset(leftEyeRef.current),
-        right: calcPupilOffset(rightEyeRef.current),
-      });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const updatePupils = () => {
+      if (leftEyeRef.current && leftPupilRef.current) {
+        const leftOffset = calcOffset(leftEyeRef.current, targetX, targetY);
+        leftPupilRef.current.style.transform = `translate3d(${leftOffset.x}px, ${leftOffset.y}px, 0)`;
+      }
+
+      if (rightEyeRef.current && rightPupilRef.current) {
+        const rightOffset = calcOffset(rightEyeRef.current, targetX, targetY);
+        rightPupilRef.current.style.transform = `translate3d(${rightOffset.x}px, ${rightOffset.y}px, 0)`;
+      }
+
+      rafId = null;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(updatePupils);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -63,10 +84,10 @@ export default function EyeFollower({ className = "" }: EyeFollowerProps) {
         style={{ borderColor: currentTheme.cardBorder }}
       >
         <div
-          className="w-1.5 h-1.5 rounded-full transition-transform duration-75 ease-out"
+          ref={leftPupilRef}
+          className="w-1.5 h-1.5 rounded-full will-change-transform"
           style={{
             backgroundColor: currentTheme.deepText,
-            transform: `translate(${pupilPositions.left.x}px, ${pupilPositions.left.y}px)`,
           }}
         />
       </div>
@@ -78,10 +99,10 @@ export default function EyeFollower({ className = "" }: EyeFollowerProps) {
         style={{ borderColor: currentTheme.cardBorder }}
       >
         <div
-          className="w-1.5 h-1.5 rounded-full transition-transform duration-75 ease-out"
+          ref={rightPupilRef}
+          className="w-1.5 h-1.5 rounded-full will-change-transform"
           style={{
             backgroundColor: currentTheme.deepText,
-            transform: `translate(${pupilPositions.right.x}px, ${pupilPositions.right.y}px)`,
           }}
         />
       </div>

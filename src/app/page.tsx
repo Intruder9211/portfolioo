@@ -120,15 +120,15 @@ export default function HomePage() {
         </section>
       </ScrollHeroZoom>
 
-      {/* 2. CIRCULAR MOVING PARTICLES SECTION (ADAPTED TO THEME) */}
-      <section className="relative min-h-screen flex items-center justify-center py-24 px-6 overflow-hidden">
+      {/* 2. CIRCULAR MOVING PARTICLES SECTION (BLACK BACKGROUND WITH 30PX RADIUS & 20PX MARGIN) */}
+      <section className="relative min-h-[90vh] flex items-center justify-center py-20 px-6 overflow-hidden bg-black text-white rounded-[30px] m-[20px] shadow-2xl border border-white/10">
         {/* Circular Video Background */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
           <div
             className="w-[300px] h-[300px] sm:w-[460px] sm:h-[460px] md:w-[600px] md:h-[600px] lg:w-[680px] lg:h-[680px] rounded-full overflow-hidden relative border shadow-2xl transition-all duration-500 bg-black"
             style={{
-              borderColor: currentTheme.cardBorder,
-              boxShadow: `0 10px 50px ${currentTheme.accentGlow}`,
+              borderColor: "rgba(255, 255, 255, 0.15)",
+              boxShadow: `0 0 80px rgba(0, 0, 0, 0.9)`,
             }}
           >
             <video
@@ -150,11 +150,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="font-heading text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight leading-[1.1]"
-            style={{
-              color: "#ffffff",
-              textShadow: "0 2px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.5)",
-            }}
+            className="font-heading text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight leading-[1.1] text-white"
           >
             Start your free website trial today
           </motion.h2>
@@ -164,11 +160,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-sm sm:text-base md:text-lg font-body tracking-wide font-medium"
-            style={{
-              color: "rgba(255, 255, 255, 0.9)",
-              textShadow: "0 2px 10px rgba(0, 0, 0, 0.8)",
-            }}
+            className="text-sm sm:text-base md:text-lg font-body tracking-wide font-medium text-neutral-300"
           >
             Engineering scalable web architectures with fluid user experiences.
           </motion.p>
@@ -182,12 +174,7 @@ export default function HomePage() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-10 py-4 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl font-body"
-              style={{
-                backgroundColor: currentTheme.deepText,
-                color: currentTheme.background,
-                boxShadow: `0 8px 24px ${currentTheme.accentGlow}`,
-              }}
+              className="inline-flex items-center justify-center px-10 py-4 text-xs sm:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl font-body bg-white text-black hover:bg-neutral-200 cursor-pointer"
             >
               Get In Touch
             </Link>

@@ -24,12 +24,11 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   letter-spacing: -0.01em;
 }
 
-/* Custom utility classes */
 .font-body {
   font-family: var(--font-body);
 }
 
-/* Uiverse Animated Blob Bounce Keyframe */
+/* Uiverse Animated Blob Bounce Keyframe for Project Cards */
 @keyframes blob-bounce {
   0% {
     transform: translate(-100%, -100%) translate3d(0, 0, 0);
