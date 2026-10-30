@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import EyeFollower from "@/components/EyeFollower";
 
 const leftNavItems = [
   { name: "Home", path: "/" },
@@ -79,22 +80,10 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Center Logo */}
+          {/* Center Logo with Interactive Cursor-Tracking Eyes */}
           <div className="flex justify-center md:w-1/3">
             <Link href="/" className="flex items-center gap-3 group focus:outline-none">
-              <div
-                className="w-9 h-9 rounded-full border flex items-center justify-center transition-transform group-hover:rotate-45 duration-500"
-                style={{
-                  borderColor: currentTheme.cardBorder,
-                  backgroundColor: currentTheme.baseCard,
-                  boxShadow: `0 2px 10px ${currentTheme.accentGlow}`,
-                }}
-              >
-                <div
-                  className="w-3.5 h-3.5 rounded-sm rotate-45 transition-colors"
-                  style={{ backgroundColor: currentTheme.primaryAccent }}
-                />
-              </div>
+              <EyeFollower />
               <span
                 className="font-heading text-lg sm:text-xl font-bold tracking-[0.25em] uppercase"
                 style={{ color: currentTheme.deepText }}
@@ -185,18 +174,7 @@ export default function Navbar() {
               <div>
                 <div className="flex items-center justify-between pb-6 border-b" style={{ borderColor: currentTheme.cardBorder }}>
                   <div className="flex items-center gap-2.5">
-                    <div
-                      className="w-7 h-7 rounded-full border flex items-center justify-center"
-                      style={{
-                        borderColor: currentTheme.cardBorder,
-                        backgroundColor: currentTheme.baseCard,
-                      }}
-                    >
-                      <div
-                        className="w-2.5 h-2.5 rounded-sm rotate-45"
-                        style={{ backgroundColor: currentTheme.primaryAccent }}
-                      />
-                    </div>
+                    <EyeFollower className="w-8 h-8" />
                     <span
                       className="font-heading text-sm font-bold tracking-[0.2em] uppercase"
                       style={{ color: currentTheme.deepText }}
