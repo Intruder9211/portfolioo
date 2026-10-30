@@ -179,107 +179,134 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                whileHover={{ y: -6, scale: 1.015 }}
-                transition={{ duration: 0.25 }}
-                className="group flex flex-col justify-between p-7 rounded-3xl border transition-all duration-300 relative cursor-pointer"
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="group relative rounded-[22px] overflow-hidden p-[5px] transition-all duration-300 shadow-xl cursor-pointer"
                 style={{
                   backgroundColor: currentTheme.baseCard,
                   borderColor: currentTheme.cardBorder,
-                  boxShadow: `0 4px 20px rgba(0,0,0,0.03)`,
+                  boxShadow: `0 14px 34px ${currentTheme.accentGlow}`,
                 }}
               >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span
-                      className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full border"
-                      style={{
-                        color: currentTheme.deepText,
-                        backgroundColor: currentTheme.background,
-                        borderColor: currentTheme.cardBorder,
-                      }}
-                    >
-                      {proj.category}
-                    </span>
-                    {proj.client && (
-                      <span
-                        className="text-[11px] font-medium truncate max-w-[160px] font-body"
-                        style={{ color: currentTheme.mutedText }}
-                      >
-                        {proj.client}
-                      </span>
-                    )}
-                  </div>
-
-                  <h3
-                    className="font-heading text-xl font-bold mt-2"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    {proj.title}
-                  </h3>
-
-                  <p
-                    className="text-sm mt-3 leading-relaxed font-body"
-                    style={{ color: currentTheme.mutedText }}
-                  >
-                    {proj.description}
-                  </p>
-
-                  {proj.metrics && (
-                    <div
-                      className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold font-body"
-                      style={{ color: currentTheme.primaryAccent }}
-                    >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>{proj.metrics}</span>
-                    </div>
-                  )}
-                </div>
-
+                {/* 1. Uiverse Animated Blob (Changes dynamically with active theme primaryAccent) */}
                 <div
-                  className="mt-8 pt-4 border-t"
-                  style={{ borderColor: currentTheme.cardBorder }}
+                  className="absolute top-1/2 left-1/2 w-44 h-44 rounded-full pointer-events-none filter blur-2xl opacity-90 animate-blob-bounce will-change-transform z-0"
+                  style={{
+                    backgroundColor: currentTheme.primaryAccent,
+                  }}
+                />
+
+                {/* 2. Secondary orbital blob for rich multi-color organic trail */}
+                <div
+                  className="absolute top-1/3 left-1/3 w-36 h-36 rounded-full pointer-events-none filter blur-xl opacity-70 animate-blob-bounce will-change-transform z-0"
+                  style={{
+                    backgroundColor: currentTheme.secondaryAccent,
+                    animationDuration: "8s",
+                    animationDirection: "reverse",
+                  }}
+                />
+
+                {/* 3. Frosted Glass Inner Card Container */}
+                <div
+                  className="relative z-10 w-full h-full rounded-[18px] p-6 sm:p-7 flex flex-col justify-between backdrop-blur-xl border transition-all duration-300"
+                  style={{
+                    backgroundColor: `${currentTheme.background}E6`, // 90% opacity frosted background
+                    borderColor: currentTheme.cardBorder,
+                  }}
                 >
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {proj.tags.map((tag) => (
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-2">
                       <span
-                        key={tag}
-                        className="text-[11px] px-2.5 py-1 rounded-md border font-medium font-body"
+                        className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-xs"
                         style={{
-                          backgroundColor: currentTheme.background,
-                          borderColor: currentTheme.cardBorder,
                           color: currentTheme.deepText,
+                          backgroundColor: currentTheme.baseCard,
+                          borderColor: currentTheme.cardBorder,
                         }}
                       >
-                        {tag}
+                        {proj.category}
                       </span>
-                    ))}
+                      {proj.client && (
+                        <span
+                          className="text-[11px] font-medium truncate max-w-[160px] font-body"
+                          style={{ color: currentTheme.mutedText }}
+                        >
+                          {proj.client}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3
+                      className="font-heading text-xl font-bold mt-2"
+                      style={{ color: currentTheme.deepText }}
+                    >
+                      {proj.title}
+                    </h3>
+
+                    <p
+                      className="text-sm mt-3 leading-relaxed font-body"
+                      style={{ color: currentTheme.mutedText }}
+                    >
+                      {proj.description}
+                    </p>
+
+                    {proj.metrics && (
+                      <div
+                        className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold font-body"
+                        style={{ color: currentTheme.primaryAccent }}
+                      >
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>{proj.metrics}</span>
+                      </div>
+                    )}
                   </div>
 
-                  <div className="flex items-center gap-5">
-                    {proj.liveUrl && (
-                      <a
-                        href={proj.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold hover:underline transition-colors"
-                        style={{ color: currentTheme.deepText }}
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                        Live Demo
-                      </a>
-                    )}
-                    {proj.githubUrl && (
-                      <a
-                        href={proj.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold hover:underline transition-colors"
-                        style={{ color: currentTheme.mutedText }}
-                      >
-                        <GitBranch className="w-3.5 h-3.5" />
-                        Source
-                      </a>
-                    )}
+                  <div
+                    className="mt-8 pt-4 border-t"
+                    style={{ borderColor: currentTheme.cardBorder }}
+                  >
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {proj.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] px-2.5 py-1 rounded-md border font-medium font-body"
+                          style={{
+                            backgroundColor: currentTheme.baseCard,
+                            borderColor: currentTheme.cardBorder,
+                            color: currentTheme.deepText,
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-5">
+                      {proj.liveUrl && (
+                        <a
+                          href={proj.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold hover:underline transition-colors"
+                          style={{ color: currentTheme.deepText }}
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Live Demo
+                        </a>
+                      )}
+                      {proj.githubUrl && (
+                        <a
+                          href={proj.githubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold hover:underline transition-colors"
+                          style={{ color: currentTheme.mutedText }}
+                        >
+                          <GitBranch className="w-3.5 h-3.5" />
+                          Source
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>

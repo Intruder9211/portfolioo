@@ -28,3 +28,26 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .font-body {
   font-family: var(--font-body);
 }
+
+/* Uiverse Animated Blob Bounce Keyframe */
+@keyframes blob-bounce {
+  0% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+  }
+  50% {
+    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+  }
+  75% {
+    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+  }
+  100% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+}
+
+.animate-blob-bounce {
+  animation: blob-bounce 6s infinite ease-in-out;
+}
