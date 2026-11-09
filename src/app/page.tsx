@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Globe, Award, ShieldCheck } from "lucide-react";
+import { ArrowRight, Code, Sparkles, Terminal as TerminalIcon, ExternalLink } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { useTheme } from "@/context/ThemeContext";
 import ScrollHeroZoom from "@/components/ScrollHeroZoom";
+import { STUDENT_PROFILE, PROJECTS, SKILLS_DATA } from "@/data/portfolioData";
 
 export default function HomePage() {
   const { currentTheme } = useTheme();
@@ -15,24 +17,24 @@ export default function HomePage() {
       className="relative min-h-screen flex flex-col transition-colors duration-500 overflow-hidden"
       style={{ backgroundColor: currentTheme.background, color: currentTheme.deepText }}
     >
-      {/* 1. SCROLL-DRIVEN ZOOM HERO SECTION WITH EDITORIAL BACKGROUND IMAGE */}
+      {/* 1. HERO SECTION */}
       <ScrollHeroZoom>
         <section className="relative min-h-screen flex flex-col justify-between pt-24 overflow-hidden">
           {/* Background image with theme overlay blend */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/hero_light.jpg"
-              alt="Sculptural Editorial Art Background"
+              src="/assets/coding-pov.png"
+              alt="Coding POV Background"
               fill
               priority
-              className="object-cover object-center filter contrast-[1.03] brightness-[0.98]"
+              className="object-cover object-center filter contrast-[1.05] brightness-[0.7]"
             />
             {/* Soft ambient tint matching active theme */}
             <div
-              className="absolute inset-0 opacity-40 transition-colors duration-700 mix-blend-multiply"
-              style={{ backgroundColor: currentTheme.baseCard }}
+              className="absolute inset-0 opacity-60 transition-colors duration-700"
+              style={{ backgroundColor: currentTheme.background }}
             />
-            {/* Smooth bottom gradient fade to background */}
+            {/* Smooth bottom gradient fade */}
             <div
               className="absolute inset-x-0 bottom-0 h-96 bg-gradient-to-t to-transparent"
               style={{
@@ -49,19 +51,19 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border shadow-sm backdrop-blur-md"
               style={{
-                backgroundColor: currentTheme.background,
+                backgroundColor: currentTheme.baseCard,
                 borderColor: currentTheme.cardBorder,
               }}
             >
               <span
-                className="w-2 h-2 rounded-full animate-ping"
+                className="w-2.5 h-2.5 rounded-full animate-ping"
                 style={{ backgroundColor: currentTheme.primaryAccent }}
               />
               <span
                 className="text-xs uppercase tracking-[0.25em] font-semibold font-body"
                 style={{ color: currentTheme.deepText }}
               >
-                Computer Science & Web Engineering
+                Hi, I'm {STUDENT_PROFILE.name}
               </span>
             </motion.div>
 
@@ -72,55 +74,97 @@ export default function HomePage() {
               className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight max-w-4xl leading-[1.05]"
               style={{ color: currentTheme.deepText }}
             >
-              A website makes it real
+              Building Intelligent & Scalable Web Systems
             </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mt-6 text-sm sm:text-lg max-w-2xl font-body leading-relaxed"
+              style={{ color: currentTheme.mutedText }}
+            >
+              {STUDENT_PROFILE.summary}
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25 }}
-              className="mt-10"
+              className="mt-10 flex flex-wrap items-center justify-center gap-4"
             >
               <Link
                 href="/projects"
-                className="group relative inline-flex items-center justify-center px-10 py-4 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl font-body"
+                className="group relative inline-flex items-center justify-center px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl font-body rounded-full"
                 style={{
                   backgroundColor: currentTheme.deepText,
                   color: currentTheme.background,
                   boxShadow: `0 8px 24px ${currentTheme.accentGlow}`,
                 }}
               >
-                <span>Explore Projects</span>
+                <span>View Projects</span>
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Link>
+
+              <a
+                href={STUDENT_PROFILE.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 text-xs sm:text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 hover:scale-105 rounded-full border backdrop-blur-md"
+                style={{
+                  borderColor: currentTheme.cardBorder,
+                  backgroundColor: currentTheme.baseCard,
+                  color: currentTheme.deepText,
+                }}
+              >
+                <GithubIcon className="w-4 h-4" />
+                <span>GitHub</span>
+              </a>
+
+              <a
+                href={STUDENT_PROFILE.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 text-xs sm:text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 hover:scale-105 rounded-full border backdrop-blur-md"
+                style={{
+                  borderColor: currentTheme.cardBorder,
+                  backgroundColor: currentTheme.baseCard,
+                  color: currentTheme.deepText,
+                }}
+              >
+                <LinkedinIcon className="w-4 h-4" />
+                <span>LinkedIn</span>
+              </a>
             </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35 }}
-              className="mt-5 text-xs sm:text-sm md:text-base font-body tracking-wide"
-              style={{ color: currentTheme.mutedText }}
-            >
-              1+ Year Experience • 14+ Client Deployments • 6 Open Source Inventions
-            </motion.p>
+            {/* Quick Metrics */}
+            <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-3xl">
+              {STUDENT_PROFILE.stats.map((s, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl border text-center backdrop-blur-md"
+                  style={{
+                    backgroundColor: currentTheme.baseCard,
+                    borderColor: currentTheme.cardBorder,
+                  }}
+                >
+                  <p
+                    className="font-heading text-2xl sm:text-3xl font-bold"
+                    style={{ color: currentTheme.primaryAccent }}
+                  >
+                    {s.value}
+                  </p>
+                  <p className="text-xs font-body mt-1" style={{ color: currentTheme.mutedText }}>
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </main>
-
-          <footer className="relative z-10 w-full text-center pb-12 px-6">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-xs sm:text-sm font-body max-w-xl mx-auto tracking-wide leading-relaxed"
-              style={{ color: currentTheme.mutedText }}
-            >
-              Delivering scalable production web solutions at Probey Services alongside academic engineering studies.
-            </motion.p>
-          </footer>
         </section>
       </ScrollHeroZoom>
 
-      {/* 2. CIRCULAR MOVING PARTICLES SECTION (BLACK BACKGROUND WITH 30PX RADIUS & 20PX MARGIN) */}
+      {/* 2. CIRCULAR MOVING PARTICLES / ARCHITECTURE SECTION */}
       <section className="relative min-h-[90vh] flex items-center justify-center py-20 px-6 overflow-hidden bg-black text-white rounded-[30px] m-[20px] shadow-2xl border border-white/10">
         {/* Circular Video Background */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
@@ -143,105 +187,184 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Content Centered in Particle Sphere */}
+        {/* Content Centered */}
         <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center justify-center space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-emerald-400">
+              Neural Systems & Code Execution
+            </span>
+          </motion.div>
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
             className="font-heading text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight leading-[1.1] text-white"
           >
-            Start your free website trial today
+            A Little About How I Build.
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-sm sm:text-base md:text-lg font-body tracking-wide font-medium text-neutral-300"
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-sm sm:text-base md:text-lg font-body tracking-wide font-medium text-neutral-300 max-w-2xl mx-auto leading-relaxed"
           >
-            Engineering scalable web architectures with fluid user experiences.
+            {STUDENT_PROFILE.aboutPitch}
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.25 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="pt-4"
           >
             <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-10 py-4 text-xs sm:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl font-body bg-white text-black hover:bg-neutral-200 cursor-pointer"
+              href="/about"
+              className="inline-flex items-center justify-center px-10 py-4 text-xs sm:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl font-body bg-white text-black hover:bg-neutral-200 cursor-pointer rounded-full"
             >
-              Get In Touch
+              <span>Read Full Philosophy</span>
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* 3. HIGHLIGHT CARDS (ROUNDED BORDER + HOVER EFFECT) */}
-      <section className="relative z-10 max-w-6xl mx-auto px-6 py-28 space-y-20">
+      {/* 3. CORE PRINCIPLES */}
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-20 space-y-12">
         <div className="text-center space-y-3">
           <span
             className="text-xs uppercase tracking-[0.3em] font-semibold font-body"
             style={{ color: currentTheme.primaryAccent }}
           >
-            Highlights & Core Values
+            Engineering Foundation
           </span>
-          <h2
-            className="font-heading text-3xl sm:text-5xl"
-            style={{ color: currentTheme.deepText }}
-          >
+          <h2 className="font-heading text-3xl sm:text-5xl" style={{ color: currentTheme.deepText }}>
             Engineered for reliability & fluid aesthetics
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              icon: Globe,
-              title: "14+ Production Deployments",
-              desc: "Battle-tested client systems engineered at Probey Services, spanning enterprise portals, e-commerce, and IoT telemetry.",
-            },
-            {
-              icon: Award,
-              title: "Award Caliber Motion",
-              desc: "Interactive spring physics, smooth momentum scroll, and WebGL particle shaders crafted with precision.",
-            },
-            {
-              icon: ShieldCheck,
-              title: "Fullstack Architecture",
-              desc: "Deep hands-on experience with Next.js App Router, TypeScript, PostgreSQL, and scalable REST/WebSocket APIs.",
-            },
-          ].map((item, i) => (
+          {STUDENT_PROFILE.coreValues.map((v, i) => (
             <motion.div
               key={i}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="p-8 rounded-3xl border transition-all duration-300 cursor-pointer"
+              className="p-8 rounded-3xl border transition-all duration-300"
               style={{
                 backgroundColor: currentTheme.baseCard,
                 borderColor: currentTheme.cardBorder,
-                boxShadow: `0 4px 20px rgba(0,0,0,0.04)`,
               }}
             >
-              <item.icon className="w-8 h-8 mb-5" style={{ color: currentTheme.primaryAccent }} />
-              <h3
-                className="font-heading text-xl font-bold mb-3"
-                style={{ color: currentTheme.deepText }}
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base mb-5"
+                style={{
+                  backgroundColor: `${currentTheme.primaryAccent}22`,
+                  color: currentTheme.primaryAccent,
+                  border: `1px solid ${currentTheme.cardBorder}`,
+                }}
               >
-                {item.title}
+                {v.num}
+              </div>
+              <h3 className="font-heading text-xl font-bold mb-3" style={{ color: currentTheme.deepText }}>
+                {v.title}
               </h3>
-              <p
-                className="text-sm leading-relaxed font-body"
-                style={{ color: currentTheme.mutedText }}
-              >
-                {item.desc}
+              <p className="text-sm leading-relaxed font-body" style={{ color: currentTheme.mutedText }}>
+                {v.description}
               </p>
             </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. FEATURED PROJECTS PREVIEW */}
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-20 space-y-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span
+              className="text-xs uppercase tracking-[0.25em] font-semibold font-body"
+              style={{ color: currentTheme.primaryAccent }}
+            >
+              Selected Work
+            </span>
+            <h2 className="font-heading text-3xl sm:text-5xl mt-2" style={{ color: currentTheme.deepText }}>
+              Featured Projects
+            </h2>
+          </div>
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-semibold font-body hover:underline"
+            style={{ color: currentTheme.primaryAccent }}
+          >
+            <span>View All ({PROJECTS.length})</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {PROJECTS.slice(0, 3).map((p) => (
+            <div
+              key={p.id}
+              className="group rounded-3xl border overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col"
+              style={{
+                backgroundColor: currentTheme.baseCard,
+                borderColor: currentTheme.cardBorder,
+              }}
+            >
+              <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
+                <Image
+                  src={p.image}
+                  alt={p.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute top-3 right-3 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full bg-black/70 text-white backdrop-blur-md">
+                  {p.category}
+                </span>
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-heading text-xl font-bold mb-2" style={{ color: currentTheme.deepText }}>
+                    {p.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-body line-clamp-3 mb-4" style={{ color: currentTheme.mutedText }}>
+                    {p.description}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: currentTheme.cardBorder }}>
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold hover:underline"
+                    style={{ color: currentTheme.primaryAccent }}
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Live Demo</span>
+                  </a>
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold hover:underline"
+                    style={{ color: currentTheme.mutedText }}
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>Code</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </section>

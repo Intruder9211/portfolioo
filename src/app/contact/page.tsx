@@ -6,13 +6,22 @@ import PageTransition from "@/components/PageTransition";
 import ScrollHeroZoom from "@/components/ScrollHeroZoom";
 import Image from "next/image";
 import confetti from "canvas-confetti";
-import { Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle2, Copy, Check } from "lucide-react";
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/SocialIcons";
 import { useTheme } from "@/context/ThemeContext";
+import { STUDENT_PROFILE } from "@/data/portfolioData";
 
 export default function ContactPage() {
   const { currentTheme } = useTheme();
   const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(STUDENT_PROFILE.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,10 +51,10 @@ export default function ContactPage() {
             }}
           >
             {/* Background image overlay */}
-            <div className="absolute inset-0 z-0 opacity-25 mix-blend-multiply">
+            <div className="absolute inset-0 z-0 opacity-20 mix-blend-multiply">
               <Image
-                src="/hero_light.jpg"
-                alt="Architecture Hero Background"
+                src="/assets/coding-pov.png"
+                alt="Contact Background"
                 fill
                 priority
                 className="object-cover object-center"
@@ -57,20 +66,20 @@ export default function ContactPage() {
                 className="text-xs uppercase tracking-[0.25em] font-semibold"
                 style={{ color: currentTheme.primaryAccent }}
               >
-                Inquiries & Collaborations
+                Let's Connect
               </span>
               <h1
                 className="font-heading text-4xl sm:text-6xl font-normal mt-3 max-w-2xl leading-tight"
                 style={{ color: currentTheme.deepText }}
               >
-                Let's build something extraordinary.
+                Get In Touch with Mohit Singh
               </h1>
               <p
                 className="mt-4 text-base sm:text-lg max-w-2xl font-body leading-relaxed"
                 style={{ color: currentTheme.mutedText }}
               >
-                Have a project inquiry, freelance contract, or want to discuss fullstack engineering and motion design?
-                Transmit your message below.
+                Whether you have an inquiry, open role, freelance challenge, or want to explore modern web engineering,
+                my inbox is always open.
               </p>
             </div>
           </div>
@@ -78,141 +87,136 @@ export default function ContactPage() {
 
         {/* Content & Form */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
-            <h2
-              className="font-heading text-2xl font-bold"
-              style={{ color: currentTheme.deepText }}
+          {/* Left Column: Direct Links & Info */}
+          <div className="space-y-8">
+            <div
+              className="p-8 rounded-3xl border space-y-6"
+              style={{
+                backgroundColor: currentTheme.baseCard,
+                borderColor: currentTheme.cardBorder,
+              }}
             >
-              Direct Connect
-            </h2>
-            <p
-              className="text-sm leading-relaxed font-body"
-              style={{ color: currentTheme.mutedText }}
-            >
-              Open for selective client projects, software engineering roles, and innovative web application contracts.
-            </p>
+              <h2 className="font-heading text-2xl font-bold" style={{ color: currentTheme.deepText }}>
+                Direct Contact
+              </h2>
 
-            <div className="space-y-4 pt-2">
-              <motion.div
-                whileHover={{ x: 6 }}
-                className="flex items-center gap-4 p-4 rounded-2xl border transition-all cursor-pointer"
-                style={{
-                  backgroundColor: currentTheme.baseCard,
-                  borderColor: currentTheme.cardBorder,
-                }}
-              >
-                <div
-                  className="w-12 h-12 rounded-2xl border flex items-center justify-center"
-                  style={{
-                    backgroundColor: currentTheme.background,
-                    borderColor: currentTheme.cardBorder,
-                  }}
-                >
-                  <Mail className="w-5 h-5" style={{ color: currentTheme.primaryAccent }} />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider font-body opacity-60">
-                    Email
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 rounded-2xl border" style={{ backgroundColor: currentTheme.background, borderColor: currentTheme.cardBorder }}>
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-5 h-5" style={{ color: currentTheme.primaryAccent }} />
+                    <span className="text-sm font-body font-medium" style={{ color: currentTheme.deepText }}>
+                      {STUDENT_PROFILE.email}
+                    </span>
                   </div>
-                  <a
-                    href="mailto:alex@probey.services"
-                    className="text-sm font-bold hover:underline font-body"
-                    style={{ color: currentTheme.deepText }}
+                  <button
+                    onClick={handleCopyEmail}
+                    className="p-2 rounded-xl border hover:scale-105 transition-transform cursor-pointer"
+                    style={{ borderColor: currentTheme.cardBorder }}
+                    title="Copy Email"
                   >
-                    alex@probey.services
+                    {copied ? (
+                      <Check className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" style={{ color: currentTheme.deepText }} />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t space-y-3" style={{ borderColor: currentTheme.cardBorder }}>
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: currentTheme.mutedText }}>
+                  Profiles & Socials
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={STUDENT_PROFILE.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold hover:scale-105 transition-transform"
+                    style={{ backgroundColor: currentTheme.background, borderColor: currentTheme.cardBorder, color: currentTheme.deepText }}
+                  >
+                    <GithubIcon className="w-4 h-4" />
+                    <span>GitHub ↗</span>
+                  </a>
+                  <a
+                    href={STUDENT_PROFILE.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold hover:scale-105 transition-transform"
+                    style={{ backgroundColor: currentTheme.background, borderColor: currentTheme.cardBorder, color: currentTheme.deepText }}
+                  >
+                    <LinkedinIcon className="w-4 h-4" />
+                    <span>LinkedIn ↗</span>
+                  </a>
+                  <a
+                    href={STUDENT_PROFILE.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold hover:scale-105 transition-transform"
+                    style={{ backgroundColor: currentTheme.background, borderColor: currentTheme.cardBorder, color: currentTheme.deepText }}
+                  >
+                    <InstagramIcon className="w-4 h-4" />
+                    <span>Instagram ↗</span>
                   </a>
                 </div>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ x: 6 }}
-                className="flex items-center gap-4 p-4 rounded-2xl border transition-all"
-                style={{
-                  backgroundColor: currentTheme.baseCard,
-                  borderColor: currentTheme.cardBorder,
-                }}
-              >
-                <div
-                  className="w-12 h-12 rounded-2xl border flex items-center justify-center"
-                  style={{
-                    backgroundColor: currentTheme.background,
-                    borderColor: currentTheme.cardBorder,
-                  }}
-                >
-                  <MapPin className="w-5 h-5" style={{ color: currentTheme.primaryAccent }} />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider font-body opacity-60">
-                    Location
-                  </div>
-                  <div
-                    className="text-sm font-bold font-body"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    Hybrid / Available Globally for Remote Engagements
-                  </div>
-                </div>
-              </motion.div>
+              </div>
             </div>
           </div>
 
-          {/* Form with Rounded Border & Shadows */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="p-8 md:p-10 rounded-3xl border shadow-xl relative"
+          {/* Right Column: Interactive Contact Form */}
+          <div
+            className="p-8 md:p-10 rounded-3xl border"
             style={{
               backgroundColor: currentTheme.baseCard,
               borderColor: currentTheme.cardBorder,
-              boxShadow: `0 10px 30px rgba(0,0,0,0.04)`,
             }}
           >
             {submitted ? (
-              <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
-                <CheckCircle2
-                  className="w-14 h-14 animate-bounce"
-                  style={{ color: currentTheme.primaryAccent }}
-                />
-                <h3
-                  className="font-heading text-2xl font-bold"
-                  style={{ color: currentTheme.deepText }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-12 space-y-4"
+              >
+                <div
+                  className="w-16 h-16 rounded-full mx-auto flex items-center justify-center"
+                  style={{ backgroundColor: `${currentTheme.primaryAccent}22`, color: currentTheme.primaryAccent }}
                 >
-                  Message Dispatched!
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h3 className="font-heading text-2xl font-bold" style={{ color: currentTheme.deepText }}>
+                  Message Transmitted!
                 </h3>
-                <p
-                  className="text-sm max-w-sm font-body"
-                  style={{ color: currentTheme.mutedText }}
-                >
-                  Thank you for reaching out. I have received your message and will respond promptly.
+                <p className="text-sm font-body max-w-sm mx-auto" style={{ color: currentTheme.mutedText }}>
+                  Thank you for reaching out. Mohit Singh will get back to you shortly.
                 </p>
                 <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-4 px-6 py-2.5 rounded-full border text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-body"
-                  style={{
-                    backgroundColor: currentTheme.deepText,
-                    color: currentTheme.background,
-                    borderColor: currentTheme.deepText,
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({ name: "", email: "", message: "" });
                   }}
+                  className="mt-4 px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase border cursor-pointer hover:scale-105"
+                  style={{ backgroundColor: currentTheme.background, borderColor: currentTheme.cardBorder, color: currentTheme.deepText }}
                 >
                   Send Another Message
                 </button>
-              </div>
+              </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label
-                    className="block text-xs uppercase tracking-wider font-bold mb-2 font-body"
-                    style={{ color: currentTheme.deepText }}
-                  >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <h2 className="font-heading text-2xl font-bold" style={{ color: currentTheme.deepText }}>
+                  Send a Message
+                </h2>
+
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wider font-semibold font-body" style={{ color: currentTheme.deepText }}>
                     Your Name
                   </label>
                   <input
-                    required
                     type="text"
-                    placeholder="Jane Doe"
+                    required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-2xl border text-sm focus:outline-none transition-all font-body"
+                    placeholder="Jane Doe"
+                    className="w-full px-4 py-3 rounded-xl border text-sm font-body outline-none focus:ring-2 transition-all"
                     style={{
                       backgroundColor: currentTheme.background,
                       borderColor: currentTheme.cardBorder,
@@ -221,20 +225,17 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <div>
-                  <label
-                    className="block text-xs uppercase tracking-wider font-bold mb-2 font-body"
-                    style={{ color: currentTheme.deepText }}
-                  >
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wider font-semibold font-body" style={{ color: currentTheme.deepText }}>
                     Your Email
                   </label>
                   <input
-                    required
                     type="email"
-                    placeholder="jane@company.com"
+                    required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-2xl border text-sm focus:outline-none transition-all font-body"
+                    placeholder="jane@example.com"
+                    className="w-full px-4 py-3 rounded-xl border text-sm font-body outline-none focus:ring-2 transition-all"
                     style={{
                       backgroundColor: currentTheme.background,
                       borderColor: currentTheme.cardBorder,
@@ -243,20 +244,17 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <div>
-                  <label
-                    className="block text-xs uppercase tracking-wider font-bold mb-2 font-body"
-                    style={{ color: currentTheme.deepText }}
-                  >
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wider font-semibold font-body" style={{ color: currentTheme.deepText }}>
                     Message
                   </label>
                   <textarea
-                    required
                     rows={4}
-                    placeholder="Describe your project, timeline, or inquiry..."
+                    required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-2xl border text-sm focus:outline-none transition-all resize-none font-body"
+                    placeholder="Tell me about your project or inquiry..."
+                    className="w-full px-4 py-3 rounded-xl border text-sm font-body outline-none focus:ring-2 transition-all resize-none"
                     style={{
                       backgroundColor: currentTheme.background,
                       borderColor: currentTheme.cardBorder,
@@ -267,19 +265,18 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 uppercase tracking-widest text-xs font-bold rounded-2xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg cursor-pointer font-body"
+                  className="w-full py-4 rounded-xl text-xs font-semibold tracking-widest uppercase transition-all duration-300 hover:scale-[1.02] active:scale-98 flex items-center justify-center gap-2 cursor-pointer shadow-lg"
                   style={{
                     backgroundColor: currentTheme.deepText,
                     color: currentTheme.background,
-                    boxShadow: `0 8px 24px ${currentTheme.accentGlow}`,
                   }}
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Transmit Inquiry</span>
+                  <span>Transmit Message</span>
+                  <Send className="w-4 h-4" />
                 </button>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </PageTransition>

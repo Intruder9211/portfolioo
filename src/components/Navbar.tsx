@@ -85,10 +85,10 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-3 group focus:outline-none">
               <EyeFollower />
               <span
-                className="font-heading text-lg sm:text-xl font-bold tracking-[0.25em] uppercase"
+                className="font-heading text-lg sm:text-xl font-bold tracking-[0.2em] uppercase"
                 style={{ color: currentTheme.deepText }}
               >
-                STUDIO
+                Mohit Singh
               </span>
             </Link>
           </div>

@@ -1,261 +1,285 @@
 export interface ProjectItem {
-  id: string;
+  id: number | string;
   title: string;
-  client?: string;
-  category: "Client Work" | "Personal Project";
+  category: string;
   description: string;
-  tags: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-  metrics?: string;
+  subDescription?: string[];
+  tags: { id: number; name: string; path?: string }[];
+  href: string;
+  github: string;
+  image: string;
 }
 
 export interface ExperienceItem {
-  role: string;
-  company: string;
-  companyType: string;
-  period: string;
-  location: string;
-  description: string;
-  achievements: string[];
-  skills: string[];
+  date: string;
+  title: string;
+  job: string;
+  link?: string;
+  subTitle?: string;
+  contents: string[];
+}
+
+export interface SkillItem {
+  n: string;
+  s: string;
+  c: string;
+  ring: number;
+  g: string;
+  d: string;
 }
 
 export const STUDENT_PROFILE = {
-  name: "Alex Dev",
-  title: "Fullstack Engineer & Creative Web Developer",
-  status: "Final Year Tech Student & Software Engineer (1+ Yr Exp)",
+  name: "Mohit Singh",
+  initials: "MS",
+  title: "Full Stack & AI Developer",
+  roleHeadline: "A Developer Dedicated to Crafting Modern Web & AI Systems",
+  status: "Full Stack Engineer & AI Enthusiast",
   company: "Probey Services",
   experienceYears: "1+ Years",
-  projectsCompleted: "20+",
-  clientProjectsCount: "14+",
-  personalProjectsCount: "6+",
+  projectsCompleted: "7+ Featured Projects",
   summary:
-    "Computer Science / Tech undergraduate with 1+ year of production experience delivering 14+ client-facing web applications at Probey Services. Specialized in Next.js, TypeScript, robust fullstack APIs, dynamic motion, and responsive frontend architectures.",
+    "Full Stack & AI Developer dedicated to clean architecture, intuitive web design, and high-performance digital systems. Focused on crafting secure, modern, and intuitive web experiences through thoughtful engineering.",
+  aboutPitch:
+    "I care deeply about the details behind modern digital products: thoughtful architecture, accessible interfaces, peak performance, and experiences that feel effortless to use.",
+  codeTerminal: [
+    'const developer = {',
+    '  name: "Mohit Singh",',
+    '  role: "Full Stack & AI Engineer",',
+    '  skills: ["React", "Next.js", "Node.js", "AI"],',
+    '  passion: "Crafting High-Performance Apps",',
+    '  available: true,',
+    '};',
+    '',
+    '// Initializing neural systems...',
+    'await launchPortfolio(developer);'
+  ],
+  email: "singhmohit101103@gmail.com",
+  github: "https://github.com/Intruder9211",
+  linkedin: "https://www.linkedin.com/in/mohit-singhintruder9211/",
+  instagram: "https://www.instagram.com/clownbros/",
+  stats: [
+    { value: "7+", label: "Featured Projects" },
+    { value: "15+", label: "Technologies Mastered" },
+    { value: "100%", label: "Responsive & Modern" },
+    { value: "24/7", label: "Open to Collaborate" }
+  ],
+  coreValues: [
+    {
+      num: "01",
+      title: "Structure First",
+      color: "lavender",
+      description: "Reusable components, strict types, and clear boundaries keep code clean, testable, and effortless to scale."
+    },
+    {
+      num: "02",
+      title: "Fast & Accessible",
+      color: "mint",
+      description: "Performance budgets and WCAG accessibility standards are treated as core features of every build, not afterthoughts."
+    },
+    {
+      num: "03",
+      title: "Secure by Habit",
+      color: "aqua",
+      description: "Input sanitization, minimal dependency surface areas, role-based protection, and secure data handling are standard."
+    }
+  ]
 };
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
-    role: "Associate Software Engineer / Frontend Developer",
-    company: "Probey Services",
-    companyType: "IT Consulting & Service Solutions",
-    period: "2024 - Present (1+ Year)",
-    location: "Hybrid / On-site",
-    description:
-      "Engineered, scaled, and maintained high-performance client web applications across e-commerce, healthcare portals, and internal enterprise dashboards. Spearheaded frontend transitions to Next.js App Router and reusable component systems.",
-    achievements: [
-      "Delivered 14+ distinct client projects on schedule with 99.8% customer satisfaction rate.",
-      "Optimized Core Web Vitals across client portals, slashing average page load times by 42%.",
-      "Created standardized UI component library adopted across 5 internal cross-functional engineering teams.",
-      "Collaborated directly with international stakeholders and clients during sprint grooming and requirement engineering.",
-    ],
-    skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs", "Node.js", "PostgreSQL", "Git"],
+    date: "Mar 2026 - Present",
+    title: "Web Developer",
+    job: "Probey Services",
+    link: "https://probeyservices.com",
+    contents: [
+      "Developing and scaling modern full-stack web applications and client portals using React.js, Next.js, and TypeScript.",
+      "Building reusable, accessible UI component systems and optimizing web applications for maximum speed and performance.",
+      "Integrating RESTful APIs, modern state management solutions, and ensuring cross-browser and responsive compatibility."
+    ]
   },
   {
-    role: "Software Engineering Intern",
-    company: "Probey Services",
-    companyType: "Service-Based Tech Firm",
-    period: "Early 2024 (6 Months)",
-    location: "On-site",
-    description:
-      "Contributed to building responsive web interfaces, API integrations, and bug remediation for SME client web applications.",
-    achievements: [
-      "Assisted in delivering 3 full-stack client web portals from wireframe to production deployment.",
-      "Implemented comprehensive form validation workflows and role-based authentication with JWT.",
-    ],
-    skills: ["JavaScript (ES6+)", "React.js", "CSS3 / Sass", "Express.js", "MongoDB"],
+    date: "Aug 2025 - Feb 2026",
+    title: "WordPress Developer",
+    job: "Shri KD Tour & Travels",
+    link: "https://kdtempotravel.com/",
+    contents: [
+      "Designed, customized, and maintained full-featured tour and travel booking web applications with responsive layouts.",
+      "Developed dynamic travel booking inquiry funnels, custom contact workflows, and integrated payment gateways.",
+      "Implemented technical SEO best practices, meta architectures, and site speed optimizations to improve search ranking and customer conversion."
+    ]
   },
+  {
+    date: "2021 - 2025",
+    title: "Bachelor of Technology (B.Tech)",
+    job: "R.D. Engineering College (RDEC)",
+    subTitle: "Computer Science & Engineering",
+    contents: [
+      "Graduated in Computer Science & Engineering with a comprehensive foundation in Data Structures, Algorithms, Software Engineering, and Database Management.",
+      "Architected independent full-stack web projects, explored AI integrations, and mastered modern JavaScript/TypeScript ecosystems.",
+      "Actively participated in technical workshops, coding challenges, and collaborative software engineering projects."
+    ]
+  }
 ];
 
-export const PERSONAL_PROJECTS: ProjectItem[] = [
-  {
-    id: "p-1",
-    title: "DevForge - AI Code Assistant",
-    category: "Personal Project",
-    description:
-      "Interactive code synthesis playground integrating Gemini & OpenAI APIs with real-time Monaco Editor and syntax evaluation.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI API", "Monaco Editor"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
-    metrics: "250+ active monthly developers",
-  },
-  {
-    id: "p-2",
-    title: "ChronoTask - Distributed Kanban",
-    category: "Personal Project",
-    description:
-      "Collaborative project management board featuring optimistic UI updates, drag-and-drop physics, and WebSockets live sync.",
-    tags: ["React", "Zustand", "Node.js", "Socket.io", "PostgreSQL"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
-  },
-  {
-    id: "p-3",
-    title: "Aura Motion 3D - Creative Portfolio",
-    category: "Personal Project",
-    description:
-      "Experimental 3D portfolio featuring Three.js procedural particle spheres, GSAP scroll timelines, and Lenis inertia physics.",
-    tags: ["Next.js", "Three.js", "GSAP", "Lenis", "Framer Motion"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
-  },
-  {
-    id: "p-4",
-    title: "CampusConnect - Student Hub",
-    category: "Personal Project",
-    description:
-      "Open-source university community portal enabling peer resource exchange, past paper archives, and verified student discussion forums.",
-    tags: ["Next.js 15", "Supabase", "Tailwind CSS", "Prisma"],
-    githubUrl: "https://github.com",
-  },
-  {
-    id: "p-5",
-    title: "CryptoPulse - Market Telemetry",
-    category: "Personal Project",
-    description:
-      "Real-time cryptocurrency ticker and algorithmic indicator dashboard consuming Binance and CoinGecko streaming WebSockets.",
-    tags: ["React", "Chart.js", "WebSockets", "Tailwind CSS"],
-    githubUrl: "https://github.com",
-  },
-  {
-    id: "p-6",
-    title: "SmartDoc - AI PDF Analyzer",
-    category: "Personal Project",
-    description:
-      "Vector-search enabled document intelligence tool allowing users to upload research papers and query them with contextual RAG.",
-    tags: ["Python", "FastAPI", "React", "LangChain", "ChromaDB"],
-    githubUrl: "https://github.com",
-  },
+export const SKILLS_DATA: SkillItem[] = [
+  { n: "React.js", s: "Rx", c: "#0ea5c9", ring: 1, g: "Frontend", d: "Composable, reusable components for high-speed dynamic interfaces." },
+  { n: "TypeScript", s: "TS", c: "#3178c6", ring: 1, g: "Frontend", d: "Typed code that stays readable, clean, and safe as architectures scale." },
+  { n: "Next.js", s: "Nx", c: "#94a3b8", ring: 1, g: "Frontend", d: "Server-side rendering, edge performance, and production routing." },
+  { n: "Node.js", s: "No", c: "#3c873a", ring: 1, g: "Backend", d: "High-throughput asynchronous server logic, microservices, and APIs." },
+  { n: "Tailwind CSS", s: "Tw", c: "#06a5c4", ring: 2, g: "Frontend", d: "Modern utility-first styling keeping design systems fast and cohesive." },
+  { n: "JavaScript", s: "JS", c: "#f59e0b", ring: 2, g: "Frontend", d: "The core engine powering dynamic DOM interactions and algorithms." },
+  { n: "MongoDB", s: "Mg", c: "#00a35c", ring: 2, g: "Backend", d: "Flexible document-based database for scalable modern web apps." },
+  { n: "Express.js", s: "Ex", c: "#a855f7", ring: 2, g: "Backend", d: "Lightweight routing and middleware pipelines for backend APIs." },
+  { n: "CSS3 / HTML5", s: "H5", c: "#e34f26", ring: 2, g: "Frontend", d: "Semantic, accessible structures, flexbox, grid, and CSS variables." },
+  { n: "Git & GitHub", s: "Gt", c: "#f05032", ring: 2, g: "Tooling", d: "Version control for clean branching, code reviews, and CI/CD pipelines." },
+  { n: "Gemini / AI", s: "AI", c: "#c084fc", ring: 1, g: "AI & ML", d: "Integrating LLMs, prompt engineering, and intelligent agent workflows." },
+  { n: "Three.js / 3D", s: "3D", c: "#38bdf8", ring: 2, g: "Frontend", d: "Interactive 3D scenes, WebGL shaders, and immersive web graphics." }
 ];
 
-export const CLIENT_PROJECTS_PROBEY: ProjectItem[] = [
+export const PROJECTS: ProjectItem[] = [
   {
-    id: "c-1",
-    title: "Apex Logistics - Fleet Tracking Portal",
-    client: "Global Cargo Ltd via Probey Services",
-    category: "Client Work",
-    description:
-      "Fullstack GPS telemetry dashboard providing live geofencing alerts, driver dispatch schedules, and automated fuel expenditure audits.",
-    tags: ["Next.js", "Google Maps API", "Express.js", "PostgreSQL", "Tailwind"],
-    metrics: "Managing 1,200+ freight vehicles across 4 regions",
+    id: 1,
+    title: "ClownBros",
+    category: "SaaS & Web",
+    description: "A modern digital transformation and technology agency designing and engineering high-impact web ecosystems.",
+    subDescription: [
+      "Engineered with TypeScript & React for high-speed dynamic rendering.",
+      "Integrated interactive editorial sections, smooth animations, and seamless navigation.",
+      "Full responsive design tailored across mobile, tablet, and desktop."
+    ],
+    href: "https://clownbrosdemo3.vercel.app/",
+    github: "https://github.com/Intruder9211/clownbros",
+    image: "/assets/projects/clownbros.jpg",
+    tags: [
+      { id: 1, name: "TypeScript", path: "/assets/logos/javascript.svg" },
+      { id: 2, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+      { id: 4, name: "Vite", path: "/assets/logos/vitejs.svg" }
+    ]
   },
   {
-    id: "c-2",
-    title: "MediCare Plus - Patient EHR System",
-    client: "Regional Healthcare Network via Probey Services",
-    category: "Client Work",
-    description:
-      "HIPAA-compliant medical records management portal with digital appointment booking, telemedicine video integration, and role-based permissions.",
-    tags: ["React", "TypeScript", "Node.js", "WebRTC", "PostgreSQL"],
-    metrics: "Serving 15,000+ monthly clinical consultations",
+    id: 2,
+    title: "ClownBros Dashboard",
+    category: "Dashboard & Analytics",
+    description: "A feature-packed enterprise admin portal & analytics engine for managing users, operations, and real-time business performance.",
+    subDescription: [
+      "Real-time metrics, data visualization, and interactive performance charts.",
+      "Role-based access control, analytics filters, and live operational feeds.",
+      "Built on robust TypeScript and clean component architecture."
+    ],
+    href: "https://clownbros-dashboard.vercel.app",
+    github: "https://github.com/Intruder9211/clownbros-dashboard",
+    image: "/assets/projects/clownbros_dashboard.jpg",
+    tags: [
+      { id: 1, name: "TypeScript", path: "/assets/logos/javascript.svg" },
+      { id: 2, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+      { id: 4, name: "Node.js", path: "/assets/logos/javascript.svg" }
+    ]
   },
   {
-    id: "c-3",
-    title: "Zenith Retail - Omnichannel E-commerce",
-    client: "Lifestyle Brand via Probey Services",
-    category: "Client Work",
-    description:
-      "High-conversion multi-currency storefront with headless Shopify integration, instantaneous search filtering, and custom checkout flows.",
-    tags: ["Next.js", "Shopify Storefront API", "Tailwind CSS", "Stripe"],
-    metrics: "+34% conversion rate enhancement post-launch",
+    id: 3,
+    title: "ClownEaser",
+    category: "Productivity & Tools",
+    description: "A modern smart workflow automation suite designed to streamline processes, eliminate repetitive tasks, and boost team efficiency.",
+    subDescription: [
+      "Minimalistic, clutter-free UX built with modern frontend frameworks.",
+      "Fast client-side state handling and instantaneous task automation pipelines.",
+      "Deployed with optimized Vercel CI/CD pipelines."
+    ],
+    href: "https://clowneaser.vercel.app",
+    github: "https://github.com/Intruder9211/clowneaser",
+    image: "/assets/projects/clowneaser.jpg",
+    tags: [
+      { id: 1, name: "TypeScript", path: "/assets/logos/javascript.svg" },
+      { id: 2, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+      { id: 4, name: "Vite", path: "/assets/logos/vitejs.svg" }
+    ]
   },
   {
-    id: "c-4",
-    title: "FinMatrix - B2B Invoicing Engine",
-    client: "Fintech Startup via Probey Services",
-    category: "Client Work",
-    description:
-      "Automated recurring subscription billing and tax compliance engine with multi-tenant dashboard and PDF generator.",
-    tags: ["Next.js", "TypeScript", "Stripe Billing", "Prisma", "AWS S3"],
+    id: 4,
+    title: "ClownKosh",
+    category: "FinTech & Utility",
+    description: "A unified digital treasury & liquidity platform for real-time asset management, cash flow tracking, and secure transfers.",
+    subDescription: [
+      "Secure financial data handling and intuitive transaction trackers.",
+      "Responsive design with instant calculation and real-time ledger updates.",
+      "Built with modern JavaScript, scalable architecture, and clean styling."
+    ],
+    href: "https://clownkosh.vercel.app",
+    github: "https://github.com/Intruder9211/clownkosh",
+    image: "/assets/projects/clownkosh.jpg",
+    tags: [
+      { id: 1, name: "JavaScript", path: "/assets/logos/javascript.svg" },
+      { id: 2, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+      { id: 4, name: "Node.js", path: "/assets/logos/javascript.svg" }
+    ]
   },
   {
-    id: "c-5",
-    title: "EduSphere - LMS Courseware Portal",
-    client: "EdTech Institute via Probey Services",
-    category: "Client Work",
-    description:
-      "Interactive learning platform with video streaming protection, gamified quiz modules, and instructor gradebook analytics.",
-    tags: ["React", "Tailwind CSS", "HLS Video", "Node.js", "MongoDB"],
+    id: 5,
+    title: "ClownMart",
+    category: "E-Commerce",
+    description: "A scalable e-commerce marketplace featuring luxury gadget discovery, dynamic cart management, and streamlined checkout.",
+    subDescription: [
+      "Modern storefront with dynamic product catalog and category filters.",
+      "Integrated shopping cart, persistent storage, and responsive layout.",
+      "Engineered using TypeScript and Tailwind CSS for peak speed."
+    ],
+    href: "https://theclownmart.vercel.app/",
+    github: "https://github.com/Intruder9211/clownmart",
+    image: "/assets/projects/clownmart.jpg",
+    tags: [
+      { id: 1, name: "TypeScript", path: "/assets/logos/javascript.svg" },
+      { id: 2, name: "Next.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 4, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" }
+    ]
   },
   {
-    id: "c-6",
-    title: "PropFinder - Real Estate MLS Platform",
-    client: "Realty Agency via Probey Services",
-    category: "Client Work",
-    description:
-      "Interactive property discovery engine with map polygon spatial search, 360-degree virtual tour viewers, and mortgage calculators.",
-    tags: ["Next.js", "Mapbox GL", "TypeScript", "REST APIs"],
+    id: 6,
+    title: "ClownFounder",
+    category: "Startup & Community",
+    description: "A digital venture ecosystem where startup founders secure funding, pitch ideas, match with investors, and accelerate growth.",
+    subDescription: [
+      "Interactive pitch deck showcase and investor matchmaking network.",
+      "Built on modern TypeScript for rapid scaling and maintainability.",
+      "Smooth animations and mobile-first responsive design."
+    ],
+    href: "https://theclownfounder.vercel.app/",
+    github: "https://github.com/Intruder9211/clownfounder",
+    image: "/assets/projects/clownfounder.jpg",
+    tags: [
+      { id: 1, name: "TypeScript", path: "/assets/logos/javascript.svg" },
+      { id: 2, name: "Next.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+      { id: 4, name: "React.js", path: "/assets/logos/react.svg" }
+    ]
   },
   {
-    id: "c-7",
-    title: "DineCraft - Restaurant POS & Ordering",
-    client: "Hospitality Group via Probey Services",
-    category: "Client Work",
-    description:
-      "Contactless QR code table ordering web app paired with kitchen display systems and thermal printer hardware integrations.",
-    tags: ["React", "WebSockets", "Tailwind CSS", "PWA"],
-  },
-  {
-    id: "c-8",
-    title: "AeroSecure - Cybersecurity Audit Suite",
-    client: "Enterprise Client via Probey Services",
-    category: "Client Work",
-    description:
-      "Vulnerability assessment dashboard visualizing network threat topologies and generating automated compliance reports.",
-    tags: ["Next.js", "D3.js", "Tailwind CSS", "Node.js"],
-  },
-  {
-    id: "c-9",
-    title: "Verve Fashion - Lookbook & AR Viewer",
-    client: "Apparel Boutique via Probey Services",
-    category: "Client Work",
-    description:
-      "Luxury editorial digital catalog with WebGL 3D garment inspection and instant sizing recommendation widgets.",
-    tags: ["Three.js", "Next.js", "Framer Motion", "Tailwind"],
-  },
-  {
-    id: "c-10",
-    title: "OmniSupply - Inventory ERP Portal",
-    client: "Wholesale Distributor via Probey Services",
-    category: "Client Work",
-    description:
-      "Warehouse stock-keeping software with barcode scanner compatibility, automated purchase order triggers, and supplier sync.",
-    tags: ["TypeScript", "React", "PostgreSQL", "Express.js"],
-  },
-  {
-    id: "c-11",
-    title: "FitPulse - Fitness Booking System",
-    client: "Gym Franchise via Probey Services",
-    category: "Client Work",
-    description:
-      "Mobile-first member portal for scheduling HIIT sessions, personal trainer calendars, and biometric milestone tracking.",
-    tags: ["Next.js", "Tailwind CSS", "Stripe", "Prisma"],
-  },
-  {
-    id: "c-12",
-    title: "CleanWatt - Solar Energy Monitoring",
-    client: "Renewable Energy Corp via Probey Services",
-    category: "Client Work",
-    description:
-      "IoT solar panel telemetry platform monitoring real-time kilowatt generation, battery health, and grid export dividends.",
-    tags: ["React", "Chart.js", "MQTT", "Node.js"],
-  },
-  {
-    id: "c-13",
-    title: "HireMatch - Applicant Tracking System",
-    client: "Recruitment Firm via Probey Services",
-    category: "Client Work",
-    description:
-      "Talent pipeline dashboard with drag-and-drop candidate stages, automated interview scheduling, and AI resume screening.",
-    tags: ["Next.js", "PostgreSQL", "Tailwind CSS", "SendGrid"],
-  },
-  {
-    id: "c-14",
-    title: "UrbanTransit - Smart Commute Booking",
-    client: "Municipal Transit via Probey Services",
-    category: "Client Work",
-    description:
-      "Public transportation route calculator with live bus arrival predictions, contactless mobile ticketing, and pass renewals.",
-    tags: ["Next.js", "Mapbox", "Redis", "TypeScript"],
-  },
+    id: 7,
+    title: "AI Interview Mocker",
+    category: "AI & ML",
+    description: "An intelligent AI-powered web platform simulating real technical & behavioral interview scenarios with dynamic speech evaluation.",
+    subDescription: [
+      "Developed an AI-powered module that generates realistic interview questions based on job roles.",
+      "Integrated Gemini & speech processing for dynamic answer scoring and instant feedback.",
+      "Implemented role-based user authentication and candidate performance dashboard.",
+      "Built a responsive UI with Tailwind CSS and React.js."
+    ],
+    href: "https://ai-interview-mocker-tau-snowy.vercel.app/",
+    github: "https://github.com/Intruder9211/AI-Interview-Mocker",
+    image: "/assets/projects/ai_interview.jpg",
+    tags: [
+      { id: 1, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 2, name: "Gemini", path: "/assets/logos/vitejs.svg" },
+      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+      { id: 4, name: "Node.js", path: "/assets/logos/javascript.svg" }
+    ]
+  }
 ];
+
+// Retain legacy aliases for backward compatibility across components
+export const PERSONAL_PROJECTS = PROJECTS;
+export const CLIENT_PROJECTS_PROBEY = PROJECTS;

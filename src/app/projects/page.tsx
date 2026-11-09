@@ -5,27 +5,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import ScrollHeroZoom from "@/components/ScrollHeroZoom";
 import Image from "next/image";
-import { ExternalLink, GitBranch, Building2, User, Sparkles } from "lucide-react";
+import { ExternalLink, Sparkles, Filter } from "lucide-react";
+import { GithubIcon } from "@/components/SocialIcons";
 import { useTheme } from "@/context/ThemeContext";
-import {
-  CLIENT_PROJECTS_PROBEY,
-  PERSONAL_PROJECTS,
-  STUDENT_PROFILE,
-  ProjectItem,
-} from "@/data/portfolioData";
+import { PROJECTS, STUDENT_PROFILE, ProjectItem } from "@/data/portfolioData";
 
 export default function ProjectsPage() {
   const { currentTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"all" | "client" | "personal">("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const allProjects = [...CLIENT_PROJECTS_PROBEY, ...PERSONAL_PROJECTS];
+  const categories = ["All", ...new Set(PROJECTS.map((p) => p.category))];
 
   const displayedProjects =
-    activeTab === "client"
-      ? CLIENT_PROJECTS_PROBEY
-      : activeTab === "personal"
-      ? PERSONAL_PROJECTS
-      : allProjects;
+    selectedCategory === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === selectedCategory);
 
   return (
     <PageTransition>
@@ -40,10 +34,10 @@ export default function ProjectsPage() {
             }}
           >
             {/* Background image overlay */}
-            <div className="absolute inset-0 z-0 opacity-25 mix-blend-multiply">
+            <div className="absolute inset-0 z-0 opacity-20 mix-blend-multiply">
               <Image
-                src="/hero_light.jpg"
-                alt="Architecture Hero Background"
+                src="/assets/coding-pov.png"
+                alt="Projects Background"
                 fill
                 priority
                 className="object-cover object-center"
@@ -61,17 +55,13 @@ export default function ProjectsPage() {
                 className="font-heading text-4xl sm:text-6xl font-normal mt-3 max-w-3xl leading-tight"
                 style={{ color: currentTheme.deepText }}
               >
-                Crafted with Precision. Delivered in Production.
+                Crafted Systems & Applications
               </h1>
               <p
                 className="mt-4 text-base sm:text-lg max-w-2xl font-body leading-relaxed"
                 style={{ color: currentTheme.mutedText }}
               >
-                Showcasing <strong>{STUDENT_PROFILE.clientProjectsCount} client applications</strong> delivered at{" "}
-                <span className="font-semibold" style={{ color: currentTheme.deepText }}>
-                  {STUDENT_PROFILE.company}
-                </span>{" "}
-                and <strong>{STUDENT_PROFILE.personalProjectsCount} personal experimental builds</strong>.
+                Explore selected full-stack web applications, AI projects, and digital platforms engineered by {STUDENT_PROFILE.name}.
               </p>
 
               {/* Quick Metrics Bar */}
@@ -80,239 +70,148 @@ export default function ProjectsPage() {
                 style={{ borderColor: currentTheme.cardBorder }}
               >
                 <div>
-                  <span
-                    className="text-2xl font-bold font-heading"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    14+
+                  <span className="font-heading text-2xl font-bold" style={{ color: currentTheme.deepText }}>
+                    {PROJECTS.length}
                   </span>
-                  <p className="text-xs font-body" style={{ color: currentTheme.mutedText }}>
-                    Client Deployments
-                  </p>
+                  <span className="ml-2 text-xs font-body" style={{ color: currentTheme.mutedText }}>
+                    Production Projects
+                  </span>
                 </div>
-                <div
-                  className="w-[1px] h-8"
-                  style={{ backgroundColor: currentTheme.cardBorder }}
-                />
                 <div>
-                  <span
-                    className="text-2xl font-bold font-heading"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    6
+                  <span className="font-heading text-2xl font-bold" style={{ color: currentTheme.deepText }}>
+                    100%
                   </span>
-                  <p className="text-xs font-body" style={{ color: currentTheme.mutedText }}>
-                    Personal Inventions
-                  </p>
-                </div>
-                <div
-                  className="w-[1px] h-8"
-                  style={{ backgroundColor: currentTheme.cardBorder }}
-                />
-                <div>
-                  <span
-                    className="text-2xl font-bold font-heading"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    1+ Yr
+                  <span className="ml-2 text-xs font-body" style={{ color: currentTheme.mutedText }}>
+                    Responsive & Live
                   </span>
-                  <p className="text-xs font-body" style={{ color: currentTheme.mutedText }}>
-                    Service Industry Experience
-                  </p>
                 </div>
               </div>
             </div>
           </div>
         </ScrollHeroZoom>
 
-        {/* Tab Filter Navigation */}
-        <div
-          className="flex items-center justify-between flex-wrap gap-4 border-b pb-4"
-          style={{ borderColor: currentTheme.cardBorder }}
-        >
-          <div className="flex items-center gap-2">
-            {[
-              { id: "all", label: `All Projects (${allProjects.length})` },
-              {
-                id: "client",
-                label: `Client Works (${CLIENT_PROJECTS_PROBEY.length})`,
-                icon: Building2,
-              },
-              {
-                id: "personal",
-                label: `Personal Projects (${PERSONAL_PROJECTS.length})`,
-                icon: User,
-              },
-            ].map((tab) => {
-              const isSelected = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className="px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-2 border cursor-pointer"
-                  style={{
-                    backgroundColor: isSelected ? currentTheme.deepText : "transparent",
-                    color: isSelected ? currentTheme.background : currentTheme.mutedText,
-                    borderColor: isSelected ? currentTheme.deepText : currentTheme.cardBorder,
-                    boxShadow: isSelected ? `0 4px 12px ${currentTheme.accentGlow}` : "none",
-                  }}
-                >
-                  {tab.icon && <tab.icon className="w-3.5 h-3.5" />}
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <span className="text-xs font-body" style={{ color: currentTheme.mutedText }}>
-            Showing <strong>{displayedProjects.length}</strong> items
-          </span>
+        {/* Category Filters */}
+        <div className="flex flex-wrap items-center gap-3">
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className="px-5 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 border cursor-pointer"
+                style={{
+                  backgroundColor: isActive ? currentTheme.deepText : currentTheme.baseCard,
+                  color: isActive ? currentTheme.background : currentTheme.deepText,
+                  borderColor: isActive ? currentTheme.deepText : currentTheme.cardBorder,
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Projects Grid with Rounded Border & Hover Lift */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence>
-            {displayedProjects.map((proj: ProjectItem) => (
+            {displayedProjects.map((p) => (
               <motion.div
+                key={p.id}
                 layout
-                key={proj.id}
-                initial={{ opacity: 0, scale: 0.96 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                whileHover={{ y: -6, scale: 1.02 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="group relative rounded-[22px] overflow-hidden p-[5px] transition-all duration-300 shadow-xl cursor-pointer"
+                className="rounded-3xl border overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl group"
                 style={{
                   backgroundColor: currentTheme.baseCard,
                   borderColor: currentTheme.cardBorder,
-                  boxShadow: `0 14px 34px ${currentTheme.accentGlow}`,
                 }}
               >
-                {/* 1. Uiverse Animated Blob (Changes dynamically with active theme primaryAccent) */}
-                <div
-                  className="absolute top-1/2 left-1/2 w-44 h-44 rounded-full pointer-events-none filter blur-2xl opacity-90 animate-blob-bounce will-change-transform z-0"
-                  style={{
-                    backgroundColor: currentTheme.primaryAccent,
-                  }}
-                />
+                <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute top-3 right-3 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full bg-black/75 text-white backdrop-blur-md">
+                    {p.category}
+                  </span>
+                </div>
 
-                {/* 2. Secondary orbital blob for rich multi-color organic trail */}
-                <div
-                  className="absolute top-1/3 left-1/3 w-36 h-36 rounded-full pointer-events-none filter blur-xl opacity-70 animate-blob-bounce will-change-transform z-0"
-                  style={{
-                    backgroundColor: currentTheme.secondaryAccent,
-                    animationDuration: "8s",
-                    animationDirection: "reverse",
-                  }}
-                />
-
-                {/* 3. Frosted Glass Inner Card Container */}
-                <div
-                  className="relative z-10 w-full h-full rounded-[18px] p-6 sm:p-7 flex flex-col justify-between backdrop-blur-xl border transition-all duration-300"
-                  style={{
-                    backgroundColor: `${currentTheme.background}E6`, // 90% opacity frosted background
-                    borderColor: currentTheme.cardBorder,
-                  }}
-                >
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span
-                        className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-xs"
-                        style={{
-                          color: currentTheme.deepText,
-                          backgroundColor: currentTheme.baseCard,
-                          borderColor: currentTheme.cardBorder,
-                        }}
-                      >
-                        {proj.category}
-                      </span>
-                      {proj.client && (
-                        <span
-                          className="text-[11px] font-medium truncate max-w-[160px] font-body"
-                          style={{ color: currentTheme.mutedText }}
-                        >
-                          {proj.client}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3
-                      className="font-heading text-xl font-bold mt-2"
-                      style={{ color: currentTheme.deepText }}
-                    >
-                      {proj.title}
+                    <h3 className="font-heading text-xl font-bold mb-2" style={{ color: currentTheme.deepText }}>
+                      {p.title}
                     </h3>
-
-                    <p
-                      className="text-sm mt-3 leading-relaxed font-body"
-                      style={{ color: currentTheme.mutedText }}
-                    >
-                      {proj.description}
+                    <p className="text-xs sm:text-sm font-body leading-relaxed mb-4" style={{ color: currentTheme.mutedText }}>
+                      {p.description}
                     </p>
 
-                    {proj.metrics && (
-                      <div
-                        className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold font-body"
-                        style={{ color: currentTheme.primaryAccent }}
-                      >
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>{proj.metrics}</span>
-                      </div>
+                    {p.subDescription && p.subDescription.length > 0 && (
+                      <ul className="space-y-1.5 border-t pt-3 mb-4" style={{ borderColor: currentTheme.cardBorder }}>
+                        {p.subDescription.map((sub, sIdx) => (
+                          <li key={sIdx} className="text-[11px] font-body text-neutral-400 flex items-start gap-1.5">
+                            <span className="text-emerald-400">•</span>
+                            <span>{sub}</span>
+                          </li>
+                        ))}
+                      </ul>
                     )}
-                  </div>
 
-                  <div
-                    className="mt-8 pt-4 border-t"
-                    style={{ borderColor: currentTheme.cardBorder }}
-                  >
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {proj.tags.map((tag) => (
+                    <div className="flex flex-wrap gap-1.5">
+                      {p.tags.map((t) => (
                         <span
-                          key={tag}
-                          className="text-[11px] px-2.5 py-1 rounded-md border font-medium font-body"
+                          key={t.id}
+                          className="px-2.5 py-1 rounded-md text-[10px] font-mono font-medium border"
                           style={{
-                            backgroundColor: currentTheme.baseCard,
+                            backgroundColor: currentTheme.background,
                             borderColor: currentTheme.cardBorder,
                             color: currentTheme.deepText,
                           }}
                         >
-                          {tag}
+                          {t.name}
                         </span>
                       ))}
                     </div>
+                  </div>
 
-                    <div className="flex items-center gap-5">
-                      {proj.liveUrl && (
-                        <a
-                          href={proj.liveUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold hover:underline transition-colors"
-                          style={{ color: currentTheme.deepText }}
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                          Live Demo
-                        </a>
-                      )}
-                      {proj.githubUrl && (
-                        <a
-                          href={proj.githubUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold hover:underline transition-colors"
-                          style={{ color: currentTheme.mutedText }}
-                        >
-                          <GitBranch className="w-3.5 h-3.5" />
-                          Source
-                        </a>
-                      )}
-                    </div>
+                  <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: currentTheme.cardBorder }}>
+                    <a
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border hover:scale-105 transition-transform"
+                      style={{
+                        backgroundColor: currentTheme.primaryAccent,
+                        borderColor: currentTheme.primaryAccent,
+                        color: "#fff",
+                      }}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Live Site</span>
+                    </a>
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border hover:scale-105 transition-transform"
+                      style={{
+                        backgroundColor: currentTheme.background,
+                        borderColor: currentTheme.cardBorder,
+                        color: currentTheme.deepText,
+                      }}
+                    >
+                      <GithubIcon className="w-3.5 h-3.5" />
+                      <span>GitHub</span>
+                    </a>
                   </div>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     </PageTransition>
   );

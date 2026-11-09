@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import ScrollHeroZoom from "@/components/ScrollHeroZoom";
 import Image from "next/image";
-import { Briefcase, Calendar, MapPin, CheckCircle, Award } from "lucide-react";
+import { Briefcase, Calendar, ExternalLink, CheckCircle, Award } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { EXPERIENCE_DATA } from "@/data/portfolioData";
 
@@ -24,10 +24,10 @@ export default function ExperiencePage() {
             }}
           >
             {/* Background image overlay */}
-            <div className="absolute inset-0 z-0 opacity-25 mix-blend-multiply">
+            <div className="absolute inset-0 z-0 opacity-20 mix-blend-multiply">
               <Image
-                src="/hero_light.jpg"
-                alt="Architecture Hero Background"
+                src="/assets/coding-pov.png"
+                alt="Experience Background"
                 fill
                 priority
                 className="object-cover object-center"
@@ -39,20 +39,19 @@ export default function ExperiencePage() {
                 className="text-xs uppercase tracking-[0.25em] font-semibold"
                 style={{ color: currentTheme.primaryAccent }}
               >
-                Industry Track Record
+                Track Record & Career
               </span>
               <h1
                 className="font-heading text-4xl sm:text-6xl font-normal mt-3 max-w-2xl leading-tight"
                 style={{ color: currentTheme.deepText }}
               >
-                1+ Year Engineering at Probey Services
+                Experience & Academic History
               </h1>
               <p
                 className="mt-4 text-base sm:text-lg max-w-2xl font-body leading-relaxed"
                 style={{ color: currentTheme.mutedText }}
               >
-                Bridging academic computer science foundations with real-world production velocity. Delivering robust
-                software for international client portfolios and enterprise partners.
+                Bridging computer science engineering foundations with high-velocity production web development.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -65,7 +64,7 @@ export default function ExperiencePage() {
                   }}
                 >
                   <Award className="w-3.5 h-3.5" style={{ color: currentTheme.primaryAccent }} />
-                  <span>14+ Client Systems Delivered</span>
+                  <span>Full Stack & AI Development</span>
                 </span>
                 <span
                   className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-semibold font-body"
@@ -76,131 +75,88 @@ export default function ExperiencePage() {
                   }}
                 >
                   <Briefcase className="w-3.5 h-3.5" style={{ color: currentTheme.primaryAccent }} />
-                  <span>Service-Based Solutions Expertise</span>
+                  <span>Modern JavaScript / TypeScript Ecosystem</span>
                 </span>
               </div>
             </div>
           </div>
         </ScrollHeroZoom>
 
-        {/* Timeline */}
-        <div
-          className="relative border-l ml-3 md:ml-4 pl-6 md:pl-8 space-y-12"
-          style={{ borderColor: currentTheme.cardBorder }}
-        >
-          {EXPERIENCE_DATA.map((exp, idx) => (
+        {/* Timeline List */}
+        <div className="space-y-8">
+          {EXPERIENCE_DATA.map((exp, index) => (
             <motion.div
-              key={exp.role + exp.period}
-              initial={{ opacity: 0, x: -25 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.15 }}
-              className="relative group"
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="p-8 md:p-10 rounded-3xl border transition-all duration-300"
+              style={{
+                backgroundColor: currentTheme.baseCard,
+                borderColor: currentTheme.cardBorder,
+              }}
             >
-              {/* Timeline marker */}
-              <div
-                className="absolute -left-[31px] md:-left-[39px] top-2 w-3.5 h-3.5 rounded-full border-2 group-hover:scale-125 transition-all"
-                style={{
-                  borderColor: currentTheme.primaryAccent,
-                  backgroundColor: currentTheme.background,
-                }}
-              />
-
-              <motion.div
-                whileHover={{ y: -5, scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="p-8 md:p-10 rounded-3xl border transition-all duration-300 shadow-sm cursor-pointer"
-                style={{
-                  backgroundColor: currentTheme.baseCard,
-                  borderColor: currentTheme.cardBorder,
-                  boxShadow: `0 4px 20px rgba(0,0,0,0.03)`,
-                }}
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-                  <h3
-                    className="font-heading text-2xl font-bold"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    {exp.role}
-                  </h3>
-                  <span
-                    className="inline-flex items-center gap-1.5 text-xs font-medium font-body"
-                    style={{ color: currentTheme.mutedText }}
-                  >
-                    <Calendar className="w-3.5 h-3.5" />
-                    {exp.period}
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-4 text-sm mb-5 font-body">
-                  <span
-                    className="inline-flex items-center gap-1.5 font-bold"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    <Briefcase className="w-3.5 h-3.5" style={{ color: currentTheme.primaryAccent }} />
-                    {exp.company}
-                  </span>
-                  <span className="text-xs" style={{ color: currentTheme.mutedText }}>
-                    ({exp.companyType})
-                  </span>
-                  <span
-                    className="inline-flex items-center gap-1.5 text-xs"
-                    style={{ color: currentTheme.mutedText }}
-                  >
-                    <MapPin className="w-3.5 h-3.5" />
-                    {exp.location}
-                  </span>
-                </div>
-
-                <p
-                  className="text-sm leading-relaxed mb-6 font-body"
-                  style={{ color: currentTheme.deepText }}
-                >
-                  {exp.description}
-                </p>
-
-                {/* Key Highlights */}
-                <div
-                  className="space-y-2.5 mb-6 pt-4 border-t"
-                  style={{ borderColor: currentTheme.cardBorder }}
-                >
-                  <h4
-                    className="text-xs uppercase tracking-wider font-bold font-body"
-                    style={{ color: currentTheme.deepText }}
-                  >
-                    Key Highlights & Impact
-                  </h4>
-                  {exp.achievements.map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-start gap-2.5 text-sm font-body"
-                      style={{ color: currentTheme.mutedText }}
-                    >
-                      <CheckCircle
-                        className="w-4 h-4 shrink-0 mt-0.5"
-                        style={{ color: currentTheme.primaryAccent }}
-                      />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Skills tags */}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.skills.map((s) => (
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b pb-6" style={{ borderColor: currentTheme.cardBorder }}>
+                <div>
+                  <div className="flex items-center gap-3">
                     <span
-                      key={s}
-                      className="text-xs px-3 py-1.5 rounded-full border font-medium font-body"
+                      className="text-xs uppercase tracking-wider font-mono font-bold px-3 py-1 rounded-full border"
                       style={{
                         backgroundColor: currentTheme.background,
                         borderColor: currentTheme.cardBorder,
-                        color: currentTheme.deepText,
+                        color: currentTheme.primaryAccent,
                       }}
                     >
-                      {s}
+                      {exp.date}
                     </span>
-                  ))}
+                  </div>
+                  <h2 className="font-heading text-2xl sm:text-3xl font-bold mt-2" style={{ color: currentTheme.deepText }}>
+                    {exp.title}
+                  </h2>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-sm font-semibold" style={{ color: currentTheme.primaryAccent }}>
+                      {exp.job}
+                    </span>
+                    {exp.subTitle && (
+                      <span className="text-sm" style={{ color: currentTheme.mutedText }}>
+                        • {exp.subTitle}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </motion.div>
+
+                {exp.link && (
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border transition-colors hover:scale-105 self-start"
+                    style={{
+                      backgroundColor: currentTheme.background,
+                      borderColor: currentTheme.cardBorder,
+                      color: currentTheme.deepText,
+                    }}
+                  >
+                    <span>Visit Company</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-xs uppercase tracking-wider font-semibold mb-3 font-body" style={{ color: currentTheme.deepText }}>
+                  Key Contributions & Focus Areas
+                </h3>
+                <ul className="space-y-3">
+                  {exp.contents.map((c, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm font-body" style={{ color: currentTheme.mutedText }}>
+                      <CheckCircle className="w-4 h-4 mt-0.5 shrink-0" style={{ color: currentTheme.primaryAccent }} />
+                      <span className="leading-relaxed">{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>

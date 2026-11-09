@@ -5,23 +5,9 @@ import PageTransition from "@/components/PageTransition";
 import ScrollHeroZoom from "@/components/ScrollHeroZoom";
 import Image from "next/image";
 import { Terminal, Lightbulb, GraduationCap, Building2, Code2, CheckCircle2 } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { useTheme } from "@/context/ThemeContext";
-import { STUDENT_PROFILE } from "@/data/portfolioData";
-
-const skills = [
-  "Next.js (App Router)",
-  "React 19",
-  "TypeScript",
-  "Tailwind CSS v4",
-  "Node.js & Express",
-  "Framer Motion",
-  "GSAP Timelines",
-  "PostgreSQL & Prisma",
-  "REST APIs & WebSockets",
-  "Docker & Git",
-  "UI/UX Prototyping",
-  "Client Requirements Engineering",
-];
+import { STUDENT_PROFILE, SKILLS_DATA, EXPERIENCE_DATA } from "@/data/portfolioData";
 
 export default function AboutPage() {
   const { currentTheme } = useTheme();
@@ -38,10 +24,10 @@ export default function AboutPage() {
               borderColor: currentTheme.cardBorder,
             }}
           >
-            {/* Background image with soft multiply blending so it never obstructs text */}
+            {/* Background image */}
             <div className="absolute inset-0 z-0 opacity-15 mix-blend-multiply pointer-events-none">
               <Image
-                src="/hero_light.jpg"
+                src="/assets/coding-pov.png"
                 alt="Architecture Hero Background"
                 fill
                 priority
@@ -62,13 +48,13 @@ export default function AboutPage() {
                 className="text-xs uppercase tracking-[0.25em] font-bold"
                 style={{ color: currentTheme.primaryAccent }}
               >
-                Background & Profile
+                About {STUDENT_PROFILE.name}
               </span>
               <h1
                 className="font-heading text-4xl sm:text-6xl font-normal mt-3 leading-tight"
                 style={{ color: currentTheme.deepText }}
               >
-                Tech Student & Production Engineer.
+                {STUDENT_PROFILE.title}
               </h1>
               <p
                 className="mt-6 text-base sm:text-lg leading-relaxed font-body font-medium"
@@ -77,129 +63,182 @@ export default function AboutPage() {
                 {STUDENT_PROFILE.summary}
               </p>
 
-              <div
-                className="mt-8 flex flex-wrap gap-4 pt-6 border-t text-xs font-body font-semibold"
-                style={{ borderColor: currentTheme.cardBorder }}
-              >
-                <div
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm"
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <a
+                  href={STUDENT_PROFILE.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-xs font-semibold tracking-wider uppercase backdrop-blur-sm"
                   style={{
                     backgroundColor: currentTheme.background,
                     borderColor: currentTheme.cardBorder,
                     color: currentTheme.deepText,
                   }}
                 >
-                  <GraduationCap className="w-4 h-4" style={{ color: currentTheme.primaryAccent }} />
-                  <span>Computer Science Undergraduate</span>
-                </div>
-
-                <div
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm"
+                  <GithubIcon className="w-4 h-4" />
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href={STUDENT_PROFILE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-xs font-semibold tracking-wider uppercase backdrop-blur-sm"
                   style={{
                     backgroundColor: currentTheme.background,
                     borderColor: currentTheme.cardBorder,
                     color: currentTheme.deepText,
                   }}
                 >
-                  <Building2 className="w-4 h-4" style={{ color: currentTheme.primaryAccent }} />
-                  <span>Associate Engineer at Probey Services</span>
-                </div>
-
-                <div
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm"
-                  style={{
-                    backgroundColor: currentTheme.background,
-                    borderColor: currentTheme.cardBorder,
-                    color: currentTheme.deepText,
-                  }}
-                >
-                  <Code2 className="w-4 h-4" style={{ color: currentTheme.primaryAccent }} />
-                  <span>20+ Fullstack & Frontend Deployments</span>
-                </div>
+                  <LinkedinIcon className="w-4 h-4" />
+                  <span>LinkedIn</span>
+                </a>
               </div>
             </div>
           </div>
         </ScrollHeroZoom>
 
-        {/* Core Pillars with High-Contrast Text */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: Building2,
-              title: "Client-Centric Delivery",
-              desc: "14+ successful client deliverables engineered at Probey Services, aligning business requirements with performant web architectures.",
-            },
-            {
-              icon: Terminal,
-              title: "Engineering Fundamentals",
-              desc: "Combining strong CS data structures & algorithms from university with contemporary TypeScript and modern Next.js production patterns.",
-            },
-            {
-              icon: Lightbulb,
-              title: "Fluid Motion & Aesthetics",
-              desc: "Creating websites that leave an impression with GSAP, Framer Motion, micro-interactions, and 60 FPS hardware acceleration.",
-            },
-          ].map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="p-8 rounded-3xl border transition-all duration-300 shadow-sm cursor-pointer"
+        {/* Core Principles */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {STUDENT_PROFILE.coreValues.map((v, i) => (
+            <div
+              key={i}
+              className="p-8 rounded-3xl border transition-all duration-300"
               style={{
                 backgroundColor: currentTheme.baseCard,
                 borderColor: currentTheme.cardBorder,
-                boxShadow: `0 4px 20px rgba(0,0,0,0.03)`,
               }}
             >
-              <item.icon className="w-8 h-8 mb-4" style={{ color: currentTheme.primaryAccent }} />
-              <h3
-                className="font-heading text-xl font-bold mb-3"
-                style={{ color: currentTheme.deepText }}
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base mb-4"
+                style={{
+                  backgroundColor: `${currentTheme.primaryAccent}22`,
+                  color: currentTheme.primaryAccent,
+                  border: `1px solid ${currentTheme.cardBorder}`,
+                }}
               >
-                {item.title}
+                {v.num}
+              </div>
+              <h3 className="font-heading text-xl font-bold mb-2" style={{ color: currentTheme.deepText }}>
+                {v.title}
               </h3>
-              <p
-                className="text-sm leading-relaxed font-body font-medium"
-                style={{ color: currentTheme.mutedText }}
-              >
-                {item.desc}
+              <p className="text-sm font-body leading-relaxed" style={{ color: currentTheme.mutedText }}>
+                {v.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Technical Arsenal with High Contrast Chips */}
+        {/* Technical Mastery Radar / Grid */}
         <div
-          className="pt-8 border-t"
-          style={{ borderColor: currentTheme.cardBorder }}
+          className="p-10 md:p-14 rounded-3xl border"
+          style={{
+            backgroundColor: currentTheme.baseCard,
+            borderColor: currentTheme.cardBorder,
+          }}
         >
-          <h2
-            className="font-heading text-2xl font-bold mb-6"
-            style={{ color: currentTheme.deepText }}
-          >
-            Technical Skills & Arsenal
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {skills.map((skill, index) => (
-              <motion.span
-                key={skill}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.03 * index }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-5 py-2.5 text-sm rounded-full border font-bold transition-all shadow-sm cursor-pointer font-body"
+          <div className="mb-8">
+            <span
+              className="text-xs uppercase tracking-[0.25em] font-bold"
+              style={{ color: currentTheme.primaryAccent }}
+            >
+              Technology Radar
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl mt-2" style={{ color: currentTheme.deepText }}>
+              Skills & Engineering Stack
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SKILLS_DATA.map((skill, index) => (
+              <div
+                key={index}
+                className="p-5 rounded-2xl border transition-all hover:scale-[1.02]"
                 style={{
-                  backgroundColor: currentTheme.baseCard,
+                  backgroundColor: currentTheme.background,
                   borderColor: currentTheme.cardBorder,
-                  color: currentTheme.deepText,
                 }}
               >
-                {skill}
-              </motion.span>
+                <div className="flex items-center justify-between mb-3">
+                  <span
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-mono font-bold"
+                    style={{ backgroundColor: `${skill.c}25`, color: skill.c, border: `1px solid ${skill.c}44` }}
+                  >
+                    {skill.s}
+                  </span>
+                  <span
+                    className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full"
+                    style={{ backgroundColor: currentTheme.baseCard, color: currentTheme.mutedText }}
+                  >
+                    {skill.g}
+                  </span>
+                </div>
+                <h4 className="font-heading text-base font-bold mb-1" style={{ color: currentTheme.deepText }}>
+                  {skill.n}
+                </h4>
+                <p className="text-xs font-body leading-relaxed" style={{ color: currentTheme.mutedText }}>
+                  {skill.d}
+                </p>
+              </div>
             ))}
           </div>
+        </div>
+
+        {/* Education & Academic Milestone */}
+        <div
+          className="p-10 md:p-14 rounded-3xl border"
+          style={{
+            backgroundColor: currentTheme.baseCard,
+            borderColor: currentTheme.cardBorder,
+          }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <GraduationCap className="w-7 h-7" style={{ color: currentTheme.primaryAccent }} />
+            <div>
+              <span
+                className="text-xs uppercase tracking-[0.25em] font-bold"
+                style={{ color: currentTheme.primaryAccent }}
+              >
+                Education
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl" style={{ color: currentTheme.deepText }}>
+                Academic Foundation
+              </h2>
+            </div>
+          </div>
+
+          {EXPERIENCE_DATA.filter((e) => e.subTitle).map((edu, idx) => (
+            <div key={idx} className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h3 className="font-heading text-xl font-bold" style={{ color: currentTheme.deepText }}>
+                    {edu.title}
+                  </h3>
+                  <p className="text-sm font-semibold" style={{ color: currentTheme.primaryAccent }}>
+                    {edu.job} — {edu.subTitle}
+                  </p>
+                </div>
+                <span
+                  className="px-3 py-1 rounded-full text-xs font-mono border self-start sm:self-auto"
+                  style={{
+                    backgroundColor: currentTheme.background,
+                    borderColor: currentTheme.cardBorder,
+                    color: currentTheme.mutedText,
+                  }}
+                >
+                  {edu.date}
+                </span>
+              </div>
+
+              <ul className="space-y-2 mt-4">
+                {edu.contents.map((item, cIdx) => (
+                  <li key={cIdx} className="flex items-start gap-2.5 text-sm font-body" style={{ color: currentTheme.mutedText }}>
+                    <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: currentTheme.primaryAccent }} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </PageTransition>

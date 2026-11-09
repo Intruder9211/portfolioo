@@ -7,8 +7,27 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import TransitionOverlay from "@/components/TransitionOverlay";
 
 export const metadata: Metadata = {
-  title: "Portfolio | Crafted with Precision",
-  description: "Animated portfolio website built with Next.js, Framer Motion, and GSAP",
+  title: "Mohit Singh | Full Stack & AI Developer",
+  description:
+    "Portfolio of Mohit Singh - Full Stack Developer & AI Enthusiast specializing in React.js, Next.js, Node.js, and modern intelligent web systems.",
+  keywords: [
+    "Mohit Singh",
+    "Portfolio",
+    "Full Stack Developer",
+    "React.js",
+    "Next.js",
+    "Node.js",
+    "AI Developer",
+    "Software Engineer",
+    "Web Developer",
+  ],
+  authors: [{ name: "Mohit Singh" }],
+  openGraph: {
+    type: "website",
+    title: "Mohit Singh | Full Stack & AI Developer",
+    description: "Explore selected full-stack web applications, AI projects, and engineering journey of Mohit Singh.",
+    images: ["/assets/coding-pov.png"],
+  },
 };
 
 export default function RootLayout({
